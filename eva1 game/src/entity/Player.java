@@ -38,22 +38,22 @@ public class Player extends Entity{
 		
 		try {
 			//video #3 (11:24) or pixelart.com scale 30x30 510 print scale
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png/"));
-			up3 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_3.png/"));
-			up4 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_4.png/"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			down3 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			down4 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			left4 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png/"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png/"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png/"));
-			right3 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_3.png/"));
-			right4 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_4.png/"));
+			up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png/"));
+			up3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_3.png/"));
+			up4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_4.png/"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			down3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			down4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			left3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			left4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png/"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
+			right3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
+			right4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_4.png/"));
 			
 
 		}catch(IOException e) {
