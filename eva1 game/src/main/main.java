@@ -1,7 +1,6 @@
 package main;
 
 import javax.swing.JFrame;
-import main.GamePanel;
 
 public class main {
 
@@ -12,7 +11,7 @@ public class main {
 		window.setResizable(false);
 		window.setTitle("2D Game");
 		
-		GamePanel gamePanel = new GamePanel(1);
+		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
 		
 		window.pack();
