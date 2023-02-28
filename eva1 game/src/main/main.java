@@ -1,18 +1,18 @@
 package main;
 
 import javax.swing.JFrame;
+import main.GamePanel;
 
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		JFrame window = new JFrame ();
+		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("2D Game");
 		
-		GamePanel gamePanel = new GamePanel();
+		GamePanel gamePanel = new GamePanel(1);
 		window.add(gamePanel);
 		
 		window.pack();
