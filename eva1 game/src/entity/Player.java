@@ -73,32 +73,48 @@ public class Player extends Entity{
 		velocityY -= gravity;
 
 		//key input controls
-		if(KeyH.upPressed == true || KeyH.downPressed == true || 
-				KeyH.leftPressed == true || KeyH.rightPressed == true)  {
+		if(KeyH.upPressed || KeyH.downPressed || 
+				KeyH.leftPressed || KeyH.rightPressed)  {
 			
-			if(KeyH.upPressed == true) {
+			if(KeyH.upPressed) {
 				direction = "up";
 				velocityY++;
 				velocityY++;
 			}
-			if(KeyH.downPressed == true) {
+			if(KeyH.downPressed) {
 				direction = "down";
 				velocityY--;
 				velocityY--;
 			}
-			if(KeyH.leftPressed == true) {
+			if(KeyH.leftPressed) {
 				direction = "left";
 				velocityX--;
 				velocityX--;
 			}
-			if (KeyH.rightPressed == true) {
+			if (KeyH.rightPressed) {
 				direction = "right";
 				velocityX++;
 				velocityX++;
 			}
-			//Player sprite changer (12 = speed of change relative to FPS)
+			if (KeyH.xKey) {
+				if (direction == "right") {
+					velocityX = velocityX + 50;
+				}
+				if (direction == "left") {
+					velocityX = velocityX - 50;
+				}
+				if (direction == "up") {
+					velocityY = velocityY + 50;
+				}
+				if (direction == "down") {
+					velocityY = velocityY - 50;
+				}
+				KeyH.xKey = false;
+			}
+
+			//Player sprite changer 
 			spriteCounter++;
-			if(spriteCounter > 12) {
+			if(spriteCounter > 12) { // (12 = speed of change relative to FPS)
 				if(spriteNum == 1) {
 					spriteNum = 2;
 				}
