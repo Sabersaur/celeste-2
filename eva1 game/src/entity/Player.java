@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.management.ValueExp;
 
 import main.GamePanel;
 import main.KeyHandler;
@@ -31,7 +32,9 @@ public class Player extends Entity{
 	public void setDefaultValues() {
 		worldX = gp.tileSize * 15;
 		worldY = gp.tileSize * 15;
-		speed = 4;
+		velocityX = 0;
+		velocityY = 0;
+		gravity = 1;
 		direction = "down";
 	}
 	public void getPlayerImage() {
@@ -46,10 +49,10 @@ public class Player extends Entity{
 			down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 			down3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 			down4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			left4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png/"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
+			left3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
+			left4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_4.png/"));
 			right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png/"));
 			right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
 			right3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
@@ -62,29 +65,56 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
+		velocityX = (float) (velocityX*0.9);
+		velocityY = (float) (velocityY*0.9);
+
+		worldY -= velocityY;
+		worldX += velocityX;
+		velocityY -= gravity;
+
 		//key input controls
-		if(KeyH.upPressed == true || KeyH.downPressed == true || 
-				KeyH.leftPressed == true || KeyH.rightPressed == true)  {
+		if(KeyH.upPressed || KeyH.downPressed || 
+				KeyH.leftPressed || KeyH.rightPressed)  {
 			
-			if(KeyH.upPressed == true) {
+			if(KeyH.upPressed) {
 				direction = "up";
-				worldY -= speed;
+				velocityY++;
+				velocityY++;
 			}
-			else if(KeyH.downPressed == true) {
+			if(KeyH.downPressed) {
 				direction = "down";
-				worldY += speed;
+				velocityY--;
+				velocityY--;
 			}
-			else if(KeyH.leftPressed == true) {
+			if(KeyH.leftPressed) {
 				direction = "left";
-				worldX -= speed;
+				velocityX--;
+				velocityX--;
 			}
-			else if (KeyH.rightPressed == true) {
+			if (KeyH.rightPressed) {
 				direction = "right";
-				worldX += speed;
+				velocityX++;
+				velocityX++;
 			}
-			//Player sprite changer (12 = speed of change relative to FPS)
+			if (KeyH.xKey) {
+				if (direction == "right") {
+					velocityX = velocityX + 50;
+				}
+				if (direction == "left") {
+					velocityX = velocityX - 50;
+				}
+				if (direction == "up") {
+					velocityY = velocityY + 50;
+				}
+				if (direction == "down") {
+					velocityY = velocityY - 50;
+				}
+				KeyH.xKey = false;
+			}
+
+			//Player sprite changer 
 			spriteCounter++;
-			if(spriteCounter > 12) {
+			if(spriteCounter > 12) { // (12 = speed of change relative to FPS)
 				if(spriteNum == 1) {
 					spriteNum = 2;
 				}
