@@ -12,12 +12,12 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	// world settings
 	public final int maxWorldCol = 23;
-	public final int maxWorldRow = 11;
+	public final int maxWorldRow = 13;
 	
-	public final int screenWidth = 1920*2/3;//Most Windows systems upscale programs by 150%
+	public final float screenWidth = 1920*2/3;//Most Windows systems upscale programs by 150%
 	//To solve this we "simply" have to downscale out program by 33%, so that 66% * 150% = 100%
-	public final int screenHeight = 1080*2/3;
-	public final int tileSize = screenWidth/maxWorldCol; //16 is the original tile size
+	public final float screenHeight = 1080*2/3;
+	public final int tileSize = (int) screenWidth/maxWorldCol; //16 is the original tile size
 
 	//FPS
 	int FPS = 60;
@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public GamePanel () {
 		
-		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		this.setPreferredSize(new Dimension((int) screenWidth,(int) screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(KeyH);

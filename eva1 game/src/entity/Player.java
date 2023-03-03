@@ -15,8 +15,8 @@ public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler KeyH;
 	
-	public final int screenX;
-	public final int screenY;
+	public final float screenX;
+	public final float screenY;
 	
 	public Player(GamePanel gp, KeyHandler KeyH) {
 		
@@ -30,8 +30,8 @@ public class Player extends Entity{
 		getPlayerImage();
 	}
 	public void setDefaultValues() {
-		worldX = 100;
-		worldY = 450;
+		worldX = gp.screenWidth/2 - (gp.tileSize/2);
+		worldY = gp.screenHeight/2 - (gp.tileSize/2);
 		velocityX = 0;
 		velocityY = 0;
 		gravity = 0;
@@ -197,7 +197,7 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, (int) screenX, (int) screenY, (int) gp.tileSize, (int) gp.tileSize, null);
 		
 	}
 }
