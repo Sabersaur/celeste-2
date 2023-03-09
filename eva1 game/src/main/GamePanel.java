@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.BasicStroke;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,19 +14,20 @@ public class GamePanel extends JPanel implements Runnable{
 	// world settings
 	public final int maxWorldCol = 23;
 	public final int maxWorldRow = 13;
+	public final float scaleWindow = (float) 0.7;
 	
-	public final float screenWidth = 1920*2/3;//Most Windows systems upscale programs by 150%
-	//To solve this we "simply" have to downscale out program by 33%, so that 66% * 150% = 100%
-	public final float screenHeight = 1080*2/3;
+	public final float screenWidth = 1920*2/3*scaleWindow;//Most Windows systems upscale programs by 150%
+	//To solve this we "simply" have to downscale our program by 33%, so that 66% * 150% = 100%
+	public final float screenHeight = 1080*2/3*scaleWindow;
 	public final int tileSize = (int) screenWidth/maxWorldCol; //16 is the original tile size
 
 	//FPS
 	int FPS = 60;
 	
-	TileManager tileM = new TileManager(this);
+	public TileManager tileM = new TileManager(this);
 	KeyHandler KeyH = new KeyHandler();
 	Thread gameThread; 
-	public Player player = new Player(this,KeyH);
+	public Player player = new Player(this,KeyH,tileM);
 	
 	
 	public GamePanel () {
@@ -85,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
+		g2.setStroke(new BasicStroke(5));
 		
 		tileM.draw(g2);
 		

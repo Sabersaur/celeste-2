@@ -1,27 +1,32 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.Color;
 
 import javax.imageio.ImageIO;
 import javax.management.ValueExp;
 
 import main.GamePanel;
 import main.KeyHandler;
+import tile.TileManager;
 
 public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
+	TileManager tileM;
 	
 	public final float screenX;
 	public final float screenY;
 	
-	public Player(GamePanel gp, KeyHandler KeyH) {
+	public Player(GamePanel gp, KeyHandler KeyH, TileManager tileM) {
 		
 		this.gp = gp;
 		this.KeyH = KeyH;
+		this.tileM = tileM;
 		
 		screenX = gp.screenWidth/2 - (gp.tileSize/2);
 		screenY = gp.screenHeight/2 - (gp.tileSize/2);
@@ -65,11 +70,93 @@ public class Player extends Entity{
 			e.printStackTrace();
 		}
 	}
-	
+	public void collide(Graphics2D g3) {
+		int[] line2P1 = new int[2];
+		int[] line2P2 = new int[2];
+		int countx;
+		int county;
+		float[] col = new float[2];
+		
+		g3.draw(new Line2D.Float(playerX, playerY, playerX+velocityX, playerY-velocityY));
+
+		if (velocityX >= 0) { //velX is positive
+			if (velocityY >= 0) { //velY is positive
+				countx = (int) playerX / gp.tileSize;
+				county = ((int) playerY / gp.tileSize);
+
+				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy >= 0; ix++) {
+					System.out.println("ix: "+ix+", iy: "+iy);
+					
+					if (tileM.mapTileNum[ix][iy] == 1) { //Search for hitboxes
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1]+gp.tileSize-10;
+						col = colisionAid(line2P1, line2P2, g3);
+						if (col[0] != 0 && col[1] != 0) {
+							playerX = col[0] - (gp.tileSize/2);
+							velocityX = 0;
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize-10;
+						line2P2[1] = line2P1[1];
+						col = colisionAid(line2P1, line2P2, g3);
+						if (col[0] != 0 && col[1] != 0) {
+							playerY = col[1] + (gp.tileSize/2);
+							velocityY = 0;
+						}	
+					}
+					if (ix >= gp.maxWorldCol) {
+						ix = countx;
+						iy--;
+					}
+				}
+			} else { //velY is negative
+
+			}
+
+		} else { //velX is negative
+			if (velocityY >= 0) { //velY is positive
+
+			} else { //velY is negative
+
+			}
+		}
+	}
+	public float[] colisionAid(int[] line2P1, int[] line2P2, Graphics2D g3) {
+		float[] result = new float[2];
+		float[] line1P1 = new float[2];
+		float[] line1P2 = new float[2];
+
+		line1P1[0] = playerX;
+		line1P1[1] = playerY;
+		line1P2[0] = playerX + velocityX;
+		line1P2[1] = playerY - velocityY;
+	   
+		g3.draw(new Line2D.Float(line2P1[0], line2P1[1], line2P2[0], line2P2[1]));
+		
+		double s1_x = line1P2[0] - line1P1[0]; 
+		double s1_y = line1P2[1] - line1P1[1];
+	  
+		double s2_x = line2P2[0] - line2P1[0]; 
+		double s2_y = line2P2[1] - line2P1[1]; 
+	  
+		double s = (-s1_y * (line1P1[0] - line2P1[0]) + s1_x * (line1P1[1] - line2P1[1])) / (-s2_x * s1_y + s1_x * s2_y);
+		double t = ( s2_x * (line1P1[1] - line2P1[1]) - s2_y * (line1P1[0] - line2P1[0])) / (-s2_x * s1_y + s1_x * s2_y);
+	  
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1) { // Collision detected
+		  result[0] = (float) (line1P1[0] + (t * s1_x)); 
+		  result[1] = (float) (line1P1[1] + (t * s1_y));
+		}
+	  
+		return result;
+	  }
 	public void update() {
 		velocityX = (float) (velocityX*0.8); //Friction, bc SOMEONE didn't add colision yet
 		velocityY = (float) (velocityY*0.8);
 
+		
 		playerY -= velocityY;
 		playerX += velocityX;
 		velocityY -= gravity;
@@ -135,9 +222,7 @@ public class Player extends Entity{
 		
 	}
 	public void draw(Graphics2D g2) {
-		// alternative white block as player
-//		g2.setColor(Color.white);
-//		g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+		
 		
 		BufferedImage image = null;
 		
@@ -199,7 +284,11 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX, (int) playerY, gp.tileSize, gp.tileSize, null);
-		
+		g2.drawImage(image, (int) playerX - gp.tileSize/2, (int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+		// alternative white block as player
+		g2.setColor(Color.white);
+		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+		g2.setColor(Color.RED);
+		collide(g2);
 	}
 }
