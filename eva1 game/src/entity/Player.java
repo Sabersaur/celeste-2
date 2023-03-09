@@ -59,7 +59,11 @@ public class Player extends Entity{
 			right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
 			right3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
 			right4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_4.png/"));
-			
+			right5 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_5.png/"));
+			right6 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_6.png/"));
+			right7 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_7.png/"));
+			right8 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_8.png/"));
+
 
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -76,13 +80,12 @@ public class Player extends Entity{
 
 		//key input controls
 		if(KeyH.upPressed || KeyH.downPressed || 
-				KeyH.leftPressed || KeyH.rightPressed)  {
+				KeyH.leftPressed || KeyH.rightPressed || KeyH.spacePressed)  {
 			
 			if(KeyH.upPressed) {
 				direction = "up";
-				velocityY++;
-				velocityY++;
 			}
+			 
 			if(KeyH.downPressed) {
 				direction = "down";
 				velocityY--;
@@ -113,10 +116,14 @@ public class Player extends Entity{
 				}
 				KeyH.xKey = false;
 			}
-
+			if (KeyH.spacePressed) {
+				velocityY =+ 30;
+				KeyH.spacePressed = false;
+				
+			}
 			//Player sprite changer 
 			spriteCounter++;
-			if(spriteCounter > 12) { // (12 = speed of change relative to FPS)
+			if(spriteCounter > 4) { // (12 = speed of change relative to FPS)
 				if(spriteNum == 1) {
 					spriteNum = 2;
 				}
@@ -127,6 +134,18 @@ public class Player extends Entity{
 					spriteNum = 4;
 				}
 				else if(spriteNum == 4) {
+					spriteNum = 5;
+				}
+				else if(spriteNum == 5) {
+					spriteNum = 6;
+				}
+				else if(spriteNum == 6) {
+					spriteNum = 7;
+				}
+				else if(spriteNum == 7) {
+					spriteNum = 8;
+				}
+				else if(spriteNum == 8) {
 					spriteNum = 1;
 				}
 				spriteCounter = 0;
@@ -152,7 +171,8 @@ public class Player extends Entity{
 			if (spriteNum == 3) {
 				image = up3;
 			}
-			if (spriteNum == 4) {
+			
+			if (spriteNum >= 4) {
 				image = up4;
 			}
 			break;
@@ -166,7 +186,7 @@ public class Player extends Entity{
 			if (spriteNum == 3) {
 				image = down3;
 			}
-			if (spriteNum == 4) {
+			if (spriteNum >= 4) {
 				image = down4;
 			}
 			break;
@@ -180,7 +200,7 @@ public class Player extends Entity{
 			if (spriteNum == 3) {
 				image = left3;
 			}
-			if (spriteNum == 4) {
+			if (spriteNum >= 4) {
 				image = left4;
 			}
 			break;
@@ -197,9 +217,22 @@ public class Player extends Entity{
 			if (spriteNum == 4) {
 				image = right4;
 			}
+			if (spriteNum == 5) {
+				image = right5;
+			}
+			if (spriteNum == 6) {
+				image = right6;
+			}
+			if (spriteNum == 7) {
+				image = right7;
+			}
+			if (spriteNum == 8) {
+				image = right8;
+			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX, (int) playerY, gp.tileSize, gp.tileSize, null);
+		
+		g2.drawImage(image, (int) playerX, (int) playerY, (int) (gp.tileSize*1.5), (int) (gp.tileSize*1.5), null);
 		
 	}
 }
