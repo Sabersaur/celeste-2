@@ -51,10 +51,15 @@ public class Player extends Entity{
 			down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 			down3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 			down4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png/"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
-			left4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_4.png/"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_1.png/"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_2.png/"));
+			left3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_3.png/"));
+			left4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_4.png/"));
+			left5 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_5.png/"));
+			left6 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_6.png/"));
+			left7 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_7.png/"));
+			left8 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_8.png/"));
+
 			right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png/"));
 			right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png/"));
 			right3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_3.png/"));
@@ -162,9 +167,10 @@ public class Player extends Entity{
 		
 		switch(direction) {
 		case "up":
-			if (spriteNum == 1) {
-				image = up1;
+			if (spriteNum >= 1) {
+				image = right1;
 			}
+			/*
 			if (spriteNum == 2) {
 				image = up2;
 			}
@@ -174,13 +180,13 @@ public class Player extends Entity{
 			
 			if (spriteNum >= 4) {
 				image = up4;
-			}
+			}*/
 			break;
 		case "down":
-			if (spriteNum == 1) {
-			    image = down1;
+			if (spriteNum >= 1) {
+			    image = right1;
 			}
-			if (spriteNum == 2) {
+			/*if (spriteNum == 2) {
 				image = down2;
 			}
 			if (spriteNum == 3) {
@@ -188,7 +194,7 @@ public class Player extends Entity{
 			}
 			if (spriteNum >= 4) {
 				image = down4;
-			}
+			}*/
 			break;
 		case "left":
 			if (spriteNum == 1) {
@@ -200,8 +206,17 @@ public class Player extends Entity{
 			if (spriteNum == 3) {
 				image = left3;
 			}
-			if (spriteNum >= 4) {
+			if (spriteNum == 4) {
 				image = left4;
+			}
+			if (spriteNum == 5) {
+				image = left5;
+			}if (spriteNum == 6) {
+				image = left6;
+			}if (spriteNum == 7) {
+				image = left7;
+			}if (spriteNum == 8) {
+				image = left8;
 			}
 			break;
 		case "right":
