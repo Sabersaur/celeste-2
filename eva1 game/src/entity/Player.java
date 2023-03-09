@@ -15,8 +15,8 @@ public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler KeyH;
 	
-	public final int screenX;
-	public final int screenY;
+	public final float screenX;
+	public final float screenY;
 	
 	public Player(GamePanel gp, KeyHandler KeyH) {
 		
@@ -30,11 +30,13 @@ public class Player extends Entity{
 		getPlayerImage();
 	}
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 15;
-		worldY = gp.tileSize * 15;
+		worldX = gp.screenWidth/2 - (gp.tileSize/2);
+		worldY = gp.screenHeight/2 - (gp.tileSize/2);
+		playerX = 100;
+		playerY = 450;
 		velocityX = 0;
 		velocityY = 0;
-		gravity = 1;
+		gravity = 0;
 		direction = "down";
 	}
 	public void getPlayerImage() {
@@ -65,11 +67,11 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-		velocityX = (float) (velocityX*0.9);
-		velocityY = (float) (velocityY*0.9);
+		velocityX = (float) (velocityX*0.8); //Friction, bc SOMEONE didn't add colision yet
+		velocityY = (float) (velocityY*0.8);
 
-		worldY -= velocityY;
-		worldX += velocityX;
+		playerY -= velocityY;
+		playerX += velocityX;
 		velocityY -= gravity;
 
 		//key input controls
@@ -197,7 +199,7 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, (int) playerX, (int) playerY, gp.tileSize, gp.tileSize, null);
 		
 	}
 }
