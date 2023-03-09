@@ -331,10 +331,10 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX - gp.tileSize/2, (int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, (int) playerX - gp.tileSize/2, (int) playerY - gp.tileSize/2, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
 		// alternative white block as player
-		g2.setColor(Color.white);
-		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+		//g2.setColor(Color.white);
+		//g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
 		g2.setColor(Color.RED);
 		collide(g2);
 	}
