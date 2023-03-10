@@ -13,14 +13,14 @@ import main.GamePanel;
 public class TileManager {
 	
 	GamePanel gp;
-	Tile[] tile;
-	public int[][] mapTileNum;
+	public Tile[] tile;
+	public int mapTileNum[][];
 	
 	public TileManager(GamePanel gp) {
 		
 		this.gp = gp;
 		tile = new Tile[13];
-		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+		mapTileNum = new int [gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
 		loadMap();
@@ -34,8 +34,9 @@ public class TileManager {
 			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass.png"));
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/stillads.png"));
-			
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass_water_top.png"));
+			tile[1].collision = true;
+
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/water_boat_1.png"));
 			
@@ -108,17 +109,17 @@ public class TileManager {
 			
 			int tileNum = mapTileNum[worldCol][worldRow];
 			
-			float worldX = worldCol * gp.tileSize;
-			float worldY = worldRow * gp.tileSize;
-			float screenX = worldX - (int) gp.player.worldX + (int) gp.player.screenX;
-			float screenY = worldY - (int) gp.player.worldY + (int) gp.player.screenY;
+			int worldX = worldCol * (int) gp.tileSize;
+			int worldY = worldRow * (int) gp.tileSize;
+			int screenX = worldX - (int) gp.player.worldX + (int) gp.player.screenX;
+			int screenY = worldY - (int) gp.player.worldY + (int) gp.player.screenY;
 			
 			if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && 
 				worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
 				worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
 				worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 				
-				g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.tileSize, gp.tileSize, null);
+				g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
 			
 			worldCol++;
