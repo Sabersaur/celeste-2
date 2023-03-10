@@ -116,8 +116,8 @@ public class Player extends Entity{
 							velocityY = 0;
 						}	
 					}
-					if (ix >= gp.maxWorldCol) {
-						ix = countx;
+					if (ix >= gp.maxWorldCol-1) {
+						ix = countx-1;
 						iy--;
 					}
 				}
@@ -132,6 +132,8 @@ public class Player extends Entity{
 
 			}
 		}
+		playerY -= velocityY;
+		playerX += velocityX;
 	}
 	public float[] colisionAid(int[] line2P1, int[] line2P2, Graphics2D g3) {
 		float[] result = new float[2];
@@ -166,8 +168,7 @@ public class Player extends Entity{
 		velocityY = (float) (velocityY*0.8);
 
 		
-		playerY -= velocityY;
-		playerX += velocityX;
+		
 		velocityY -= gravity;
 
 		//key input controls
@@ -254,79 +255,60 @@ public class Player extends Entity{
 		case "up":
 			if (spriteNum >= 1) {
 				image = right1;
-			}
-			/*
-			if (spriteNum == 2) {
+			}/* else if (spriteNum == 2) {
 				image = up2;
-			}
-			if (spriteNum == 3) {
+			} else if (spriteNum == 3) {
 				image = up3;
-			}
-			
-			if (spriteNum >= 4) {
+			} else if (spriteNum >= 4) {
 				image = up4;
 			}*/
 			break;
 		case "down":
 			if (spriteNum >= 1) {
 			    image = right1;
-			}
-			/*if (spriteNum == 2) {
+			}/* else if (spriteNum == 2) {
 				image = down2;
-			}
-			if (spriteNum == 3) {
+			} else if (spriteNum == 3) {
 				image = down3;
-			}
-			if (spriteNum >= 4) {
+			} else if (spriteNum >= 4) {
 				image = down4;
 			}*/
 			break;
 		case "left":
 			if (spriteNum == 1) {
 				image = left1;
-			}
-			if (spriteNum == 2) {
+			} else if (spriteNum == 2) {
 				image = left2;
-			}
-			if (spriteNum == 3) {
+			} else if (spriteNum == 3) {
 				image = left3;
-			}
-			if (spriteNum == 4) {
+			} else if (spriteNum == 4) {
 				image = left4;
-			}
-			if (spriteNum == 5) {
+			} else if (spriteNum == 5) {
 				image = left5;
-			}if (spriteNum == 6) {
+			} else if (spriteNum == 6) {
 				image = left6;
-			}if (spriteNum == 7) {
+			} else if (spriteNum == 7) {
 				image = left7;
-			}if (spriteNum == 8) {
+			} else if (spriteNum == 8) {
 				image = left8;
 			}
 			break;
 		case "right":
 			if (spriteNum == 1) {
 				image = right1;
-			}
-			if (spriteNum == 2) {
+			} else if (spriteNum == 2) {
 				image = right2;
-			}
-			if (spriteNum == 3) {
+			} else if (spriteNum == 3) {
 				image = right3;
-			}
-			if (spriteNum == 4) {
+			} else if (spriteNum == 4) {
 				image = right4;
-			}
-			if (spriteNum == 5) {
+			} else if (spriteNum == 5) {
 				image = right5;
-			}
-			if (spriteNum == 6) {
+			} else if (spriteNum == 6) {
 				image = right6;
-			}
-			if (spriteNum == 7) {
+			} else if (spriteNum == 7) {
 				image = right7;
-			}
-			if (spriteNum == 8) {
+			} else if (spriteNum == 8) {
 				image = right8;
 			}
 			break;
