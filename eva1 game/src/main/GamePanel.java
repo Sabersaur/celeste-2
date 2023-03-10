@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable{
 	// world settings
 	public final int maxWorldCol = 40;
 	public final int maxWorldRow = 23;
-	public final float scaleWindow = (float) 0.7;
+	public final float scaleWindow = (float) 1;
 	
 	public final float screenWidth = 1920*2/3*scaleWindow;//Most Windows systems upscale programs by 150%
 	//To solve this we "simply" have to downscale our program by 33%, so that 66% * 150% = 100%
@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public TileManager tileM = new TileManager(this);
 	KeyHandler KeyH = new KeyHandler();
 	Thread gameThread; 
-	public Player player = new Player(this,KeyH,tileM);
+	public Player player = new Player(this,KeyH);
 	
 	
 	public GamePanel () {
@@ -53,9 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
  		
 		while(gameThread != null) {
-			
 			update();
-			
 			repaint();
 			
 			try {
@@ -87,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
-		g2.setStroke(new BasicStroke(5));
 		
 		tileM.draw(g2);
 		
