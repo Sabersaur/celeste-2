@@ -12,8 +12,8 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable{
 	
 	// world settings
-	public final int maxWorldCol = 23;
-	public final int maxWorldRow = 13;
+	public final int maxWorldCol = 40;
+	public final int maxWorldRow = 23;
 	public final float scaleWindow = (float) 0.7;
 	
 	public final float screenWidth = 1920*2/3*scaleWindow;//Most Windows systems upscale programs by 150%

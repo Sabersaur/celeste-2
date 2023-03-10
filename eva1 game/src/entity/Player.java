@@ -198,16 +198,16 @@ public class Player extends Entity{
 			}
 			if (KeyH.xKey) {
 				if (direction == "right") {
-					velocityX = velocityX + 50;
+					velocityX = velocityX + 25;
 				}
 				if (direction == "left") {
-					velocityX = velocityX - 50;
+					velocityX = velocityX - 25;
 				}
 				if (direction == "up") {
-					velocityY = velocityY + 50;
+					velocityY = velocityY + 25;
 				}
 				if (direction == "down") {
-					velocityY = velocityY - 50;
+					velocityY = velocityY - 25;
 				}
 				KeyH.xKey = false;
 			}
