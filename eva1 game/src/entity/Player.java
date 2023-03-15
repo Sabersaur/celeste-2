@@ -166,14 +166,11 @@ public class Player extends Entity{
 		return result;
 	  }
 	public void update() {
-<<<<<<< HEAD
 		velocityX = (float) (velocityX*0.8); //Friction, bc SOMEONE didn't add colision yet
 		velocityY = (float) (velocityY*0.8);
-=======
 		//velocityX = (float) (velocityX*0.9); //Friction, bc SOMEONE didn't add colision yet
 		//velocityY = (float) (velocityY*0.9);
 		velocityY -= gravity;
->>>>>>> 9d439d767b4cbb80633edbadf6b3f86928479436
 
 		
 		
