@@ -39,7 +39,7 @@ public class Player extends Entity{
 		playerY = 450;
 		velocityX = 0;
 		velocityY = 0;
-		gravity = 0;
+		gravity = 1;
 		direction = "down";
 	}
 	public void getPlayerImage() {
@@ -96,12 +96,13 @@ public class Player extends Entity{
 					
 					line1P1[0] = (int) playerX + gp.tileSize/2;
 					line1P1[1] = (int) playerY - gp.tileSize/2;
-					
+
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
+
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] - (gp.tileSize/2);
@@ -250,6 +251,8 @@ public class Player extends Entity{
 
 		line1P2[0] = playerX + velocityX;
 		line1P2[1] = playerY - velocityY;
+
+
 	   
 		float s1_x = line1P2[0] - line1P1[0]; 
 		float s1_y = line1P2[1] - line1P1[1];
@@ -267,19 +270,20 @@ public class Player extends Entity{
 	  
 		return result;
 	  }
+	
 	public void update() {
-		velocityX = (float) (velocityX*0.8); //Friction, bc SOMEONE didn't add colision yet
-		velocityY = (float) (velocityY*0.8);
-		//velocityX = (float) (velocityX*0.9); //Friction, bc SOMEONE didn't add colision yet
-		//velocityY = (float) (velocityY*0.9);
+		velocityX = (float) (velocityX*0.9); //Friction, bc SOMEONE didn't add colision yet
+		velocityY = (float) (velocityY*0.9);
 		velocityY -= gravity;
+		
+		collide();
+		if (playerX <= 0 || playerY <= 0 || playerX >= gp.screenWidth || playerY >= gp.screenHeight) {
+			setDefaultValues();
+		}
 
-		
-		
-		velocityY -= gravity;
 
 		//key input controls
-		if(KeyH.upPressed || KeyH.downPressed || 
+		if(KeyH.upPressed || KeyH.downPressed || KeyH.xKey ||
 				KeyH.leftPressed || KeyH.rightPressed || KeyH.spacePressed)  {
 			
 			if(KeyH.upPressed) {
@@ -289,16 +293,13 @@ public class Player extends Entity{
 			if(KeyH.downPressed) {
 				direction = "down";
 				velocityY--;
-				velocityY--;
 			}
 			if(KeyH.leftPressed) {
 				direction = "left";
 				velocityX--;
-				velocityX--;
 			}
 			if (KeyH.rightPressed) {
 				direction = "right";
-				velocityX++;
 				velocityX++;
 			}
 			if (KeyH.xKey) {
@@ -420,10 +421,10 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX - gp.tileSize/2, (int) playerY - gp.tileSize/2, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
+		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
 		// alternative white block as player
-		//g2.setColor(Color.white);
-		//g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
-		collide();
+		g2.setColor(Color.white);
+		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+
 	}
 }
