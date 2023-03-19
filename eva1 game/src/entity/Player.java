@@ -1,13 +1,13 @@
 package entity;
 
 import java.awt.Graphics2D;
-//import java.awt.geom.Line2D; // For debugging
+import java.awt.BasicStroke; // For debugging
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
-//import javax.management.ValueExp; // Why is this here?
+//import javax.management.ValueExp; // Why is this here? What is it used for?
 
 import main.GamePanel;
 import main.KeyHandler;
@@ -103,7 +103,7 @@ public class Player extends Entity{
 
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) { // Collision point found
-							playerX = col[0] - (gp.tileSize/2); // Don't go through wall
+							playerX = col[0] - (gp.tileSize)/2; // Don't go through wall
 							velocityX = 0; // Be stopped by wall
 							line1P1[0] = (int) col[0]; // Update player position for next calculation
 						}
@@ -113,7 +113,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1];
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerY = col[1] + (gp.tileSize/2);
+							playerY = col[1] + (gp.tileSize)/2 +1; //+1 for IDK it worked when walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 						}	
@@ -142,7 +142,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1] + gp.tileSize;
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] - (gp.tileSize/2);
+							playerX = col[0] - (gp.tileSize)/2;
 							velocityX = 0;
 							line1P1[0] = (int) col[0];
 						}
@@ -152,7 +152,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1];
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerY = col[1] - (gp.tileSize/2);
+							playerY = col[1] - (gp.tileSize)/2 -1; //-1 for smoother walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 						}	
@@ -183,7 +183,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1] + gp.tileSize;
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] + (gp.tileSize/2);
+							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
 							line1P1[0] = (int) col[0];
 						}
@@ -193,7 +193,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1];
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerY = col[1] + (gp.tileSize/2);
+							playerY = col[1] + (gp.tileSize)/2 +1;
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 						}	
@@ -222,7 +222,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1] + gp.tileSize;
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] + (gp.tileSize/2);
+							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
 							line1P1[0] = (int) col[0];
 						}
@@ -232,7 +232,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1];
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerY = col[1] - (gp.tileSize/2);
+							playerY = col[1] - (gp.tileSize)/2 -1; //Smoother walking, again
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 						}	
@@ -257,14 +257,14 @@ public class Player extends Entity{
 
 		line1P2[0] = line1P1[0] + velocityX;
 		line1P2[1] = line1P1[1] - velocityY;
-
-
 	   
 		float s1_x = line1P2[0] - line1P1[0]; 
 		float s1_y = line1P2[1] - line1P1[1];
 	  
 		float s2_x = line2P2[0] - line2P1[0]; 
 		float s2_y = line2P2[1] - line2P1[1]; 
+
+
 	  
 		float s = (-s1_y * (line1P1[0] - line2P1[0]) + s1_x * (line1P1[1] - line2P1[1])) / (-s2_x * s1_y + s1_x * s2_y);
 		float t = ( s2_x * (line1P1[1] - line2P1[1]) - s2_y * (line1P1[0] - line2P1[0])) / (-s2_x * s1_y + s1_x * s2_y);
@@ -431,6 +431,9 @@ public class Player extends Entity{
 		// alternative white block as player
 		g2.setColor(Color.white);
 		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
-
+		
+		g2.setColor(Color.red);
+		g2.setStroke(new BasicStroke(3));
+		g2.drawLine((int) playerX,(int) playerY,(int) (playerX + velocityX),(int) (playerY - velocityY));
 	}
 }
