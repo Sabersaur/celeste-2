@@ -1,17 +1,16 @@
 package entity;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
+//import java.awt.geom.Line2D; // For debugging
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
-import javax.management.ValueExp;
+//import javax.management.ValueExp; // Why is this here?
 
 import main.GamePanel;
 import main.KeyHandler;
-import tile.TileManager;
 
 public class Player extends Entity{
 	

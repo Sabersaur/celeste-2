@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { //Constant warning "This method has a constructer name". Can we fix this?
 
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
