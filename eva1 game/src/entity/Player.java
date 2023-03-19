@@ -91,11 +91,10 @@ public class Player extends Entity{
 			if (velocityY >= 0) { //velY is positive
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
+				line1P1[0] = (int) playerX + gp.tileSize/2;
+				line1P1[1] = (int) playerY - gp.tileSize/2;
 
 				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy >= 0; ix++) {
-					
-					line1P1[0] = (int) playerX + gp.tileSize/2;
-					line1P1[1] = (int) playerY - gp.tileSize/2;
 
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
 						line2P1[0] = ix*gp.tileSize;
@@ -104,9 +103,10 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1] + gp.tileSize;
 
 						col = colisionAid(line1P1, line2P1, line2P2);
-						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] - (gp.tileSize/2);
-							velocityX = 0;
+						if (col[0] != 0 && col[1] != 0) { // Collision point found
+							playerX = col[0] - (gp.tileSize/2); // Don't go through wall
+							velocityX = 0; // Be stopped by wall
+							line1P1[0] = (int) col[0]; // Update player position for next calculation
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -116,6 +116,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize/2);
 							velocityY = 0;
+							line1P1[1] = (int) col[1];
 						}	
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -144,6 +145,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] - (gp.tileSize/2);
 							velocityX = 0;
+							line1P1[0] = (int) col[0];
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] =  iy*gp.tileSize;
@@ -153,6 +155,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize/2);
 							velocityY = 0;
+							line1P1[1] = (int) col[1];
 						}	
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -183,6 +186,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize/2);
 							velocityX = 0;
+							line1P1[0] = (int) col[0];
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -192,6 +196,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize/2);
 							velocityY = 0;
+							line1P1[1] = (int) col[1];
 						}	
 					}
 					if (ix <= 0 || ix <= countx-5) {
@@ -220,6 +225,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize/2);
 							velocityX = 0;
+							line1P1[0] = (int) col[0];
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] =  iy*gp.tileSize;
@@ -229,6 +235,7 @@ public class Player extends Entity{
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize/2);
 							velocityY = 0;
+							line1P1[1] = (int) col[1];
 						}	
 					}
 					if (ix <= 0 || ix <= countx-5) {
@@ -249,8 +256,8 @@ public class Player extends Entity{
 		float[] result = new float[2];
 		float[] line1P2 = new float[2];
 
-		line1P2[0] = playerX + velocityX;
-		line1P2[1] = playerY - velocityY;
+		line1P2[0] = line1P1[0] + velocityX;
+		line1P2[1] = line1P1[1] - velocityY;
 
 
 	   
