@@ -103,7 +103,7 @@ public class Player extends Entity{
 
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) { // Collision point found
-							playerX = col[0] - (gp.tileSize)/2; // Don't go through wall
+							playerX = col[0] - (gp.tileSize)/2 -1; // Don't go through wall
 							velocityX = 0; // Be stopped by wall
 							line1P1[0] = (int) col[0]; // Update player position for next calculation
 						}
