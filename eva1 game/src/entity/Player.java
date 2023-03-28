@@ -142,7 +142,7 @@ public class Player extends Entity{
 						line2P2[1] = line2P1[1] + gp.tileSize;
 						col = colisionAid(line1P1, line2P1, line2P2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] - (gp.tileSize)/2 -1;
+							playerX = col[0] - (gp.tileSize)/2;
 							velocityX = 0;
 							line1P1[0] = (int) col[0];
 						}
