@@ -174,7 +174,7 @@ public class Player extends Entity{
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
-				for (int ix = countx +2, iy = county; ix >= 0 && iy >= 0; ix--) {
+				for (int ix = countx +1, iy = county; ix >= 0 && iy >= 0; ix--) {
 					
 					line1P1[0] = (int) playerX - gp.tileSize/2;
 					line1P1[1] = (int) playerY - gp.tileSize/2;
@@ -202,7 +202,7 @@ public class Player extends Entity{
 						}	
 					}
 					if (ix <= 0 || ix <= countx-5) {
-						ix = countx;
+						ix = countx +1; //look, it just works, okay?
 						iy--;
 					}
 					if (iy <= county-5) {
