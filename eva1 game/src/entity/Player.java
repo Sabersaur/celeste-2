@@ -16,6 +16,7 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
+	boolean debugging = true;
 	
 	public final float screenX;
 	public final float screenY;
@@ -78,7 +79,7 @@ public class Player extends Entity{
 			e.printStackTrace();
 		}
 	}
-	public void collide() {
+	public void collide(Graphics2D g2) {
 		float[] line2P1 = new float[2];
 		float[] line2P2 = new float[2];
 		int countx;
@@ -101,7 +102,9 @@ public class Player extends Entity{
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
 
-						col = colisionAid(line1P1, line2P1, line2P2);
+						
+
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) { // Collision point found
 							playerX = col[0] - (gp.tileSize)/2 -1; // Don't go through wall
 							velocityX = 0; // Be stopped by wall
@@ -111,7 +114,7 @@ public class Player extends Entity{
 						line2P1[1] = (iy+1)*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize)/2 +1; //+1 for IDK it worked when walking
 							velocityY = 0;
@@ -140,9 +143,9 @@ public class Player extends Entity{
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] - (gp.tileSize)/2;
+							playerX = col[0] - (gp.tileSize)/2 -1;
 							velocityX = 0;
 							line1P1[0] = (int) col[0];
 						}
@@ -150,7 +153,7 @@ public class Player extends Entity{
 						line2P1[1] =  iy*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize)/2 -1; //-1 for smoother walking
 							velocityY = 0;
@@ -171,7 +174,7 @@ public class Player extends Entity{
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
-				for (int ix = countx, iy = county; ix >= 0 && iy >= 0; ix--) {
+				for (int ix = countx +2, iy = county; ix >= 0 && iy >= 0; ix--) {
 					
 					line1P1[0] = (int) playerX - gp.tileSize/2;
 					line1P1[1] = (int) playerY - gp.tileSize/2;
@@ -181,7 +184,7 @@ public class Player extends Entity{
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
@@ -191,7 +194,7 @@ public class Player extends Entity{
 						line2P1[1] = (iy+1)*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize)/2 +1;
 							velocityY = 0;
@@ -210,7 +213,7 @@ public class Player extends Entity{
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
-				for (int ix = countx, iy = county; ix >= 0 && iy <= gp.maxWorldRow-1; ix--) {
+				for (int ix = countx +1, iy = county; ix >= 0 && iy <= gp.maxWorldRow-1; ix--) {
 					
 					line1P1[0] = (int) playerX - gp.tileSize/2;
 					line1P1[1] = (int) playerY + gp.tileSize/2;
@@ -220,7 +223,7 @@ public class Player extends Entity{
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
@@ -230,7 +233,7 @@ public class Player extends Entity{
 						line2P1[1] =  iy*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize)/2 -1; //Smoother walking, again
 							velocityY = 0;
@@ -251,12 +254,16 @@ public class Player extends Entity{
 		playerY -= velocityY;
 		playerX += velocityX;
 	}
-	public float[] colisionAid(int[] line1P1, float[] line2P1, float[] line2P2) {
+	public float[] colisionAid(int[] line1P1, float[] line2P1, float[] line2P2, Graphics2D g2) {
 		float[] result = new float[2];
 		float[] line1P2 = new float[2];
 
 		line1P2[0] = line1P1[0] + velocityX;
 		line1P2[1] = line1P1[1] - velocityY;
+
+		if (debugging) {
+			g2.drawLine((int) line2P1[0], (int) line2P1[1], (int) line2P2[0], (int) line2P2[1]);
+		}
 	   
 		float s1_x = line1P2[0] - line1P1[0]; 
 		float s1_y = line1P2[1] - line1P1[1];
@@ -282,7 +289,7 @@ public class Player extends Entity{
 		velocityY = (float) (velocityY*0.9);
 		velocityY -= gravity;
 		
-		collide();
+		
 		if (playerX <= 0 || playerY <= 0 || playerX >= gp.screenWidth || playerY >= gp.screenHeight) {
 			setDefaultValues();
 		}
@@ -431,6 +438,8 @@ public class Player extends Entity{
 		// alternative white block as player
 		g2.setColor(Color.white);
 		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+
+		collide(g2);
 		
 		g2.setColor(Color.red);
 		g2.setStroke(new BasicStroke(3));
