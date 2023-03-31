@@ -18,6 +18,7 @@ public class Player extends Entity{
 	KeyHandler KeyH;
 	boolean debugging = true;
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
+	int grounded = 0;
 		
 	public final float screenX;
 	public final float screenY;
@@ -123,6 +124,7 @@ public class Player extends Entity{
 							playerY = col[1] + (gp.tileSize)/2 +1; //+1 for IDK it worked when walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
+
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -172,6 +174,7 @@ public class Player extends Entity{
 							playerY = col[1] - (gp.tileSize)/2 -1; //-1 for smoother walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
+							grounded = 6;
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -261,6 +264,7 @@ public class Player extends Entity{
 							playerY = col[1] - (gp.tileSize)/2 -1; //Smoother walking, again
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
+							grounded = 6;
 						}	
 					}
 					if (ix <= 0 || ix <= countx-5) {
@@ -385,9 +389,11 @@ public class Player extends Entity{
 				KeyH.xKey = false;
 			}
 			if (KeyH.spacePressed) {
-				velocityY =+ 30;
-				KeyH.spacePressed = false;
-				
+				if (grounded > 0) {
+					velocityY =+ 30;
+					KeyH.spacePressed = false;
+					grounded = 0;
+				}
 			}
 			//Player sprite changer 
 			spriteCounter++;
@@ -496,6 +502,9 @@ public class Player extends Entity{
 		g2.setColor(Color.red);
 		g2.setStroke(new BasicStroke(3));
 		collide(g2);
-		g2.drawLine((int) playerX,(int) playerY,(int) (playerX + velocityX),(int) (playerY - velocityY));
+		g2.drawLine((int) playerX, (int) playerY, (int) (playerX + velocityX), (int) (playerY - velocityY));
+		if (grounded > 0) {
+			grounded--;
+		}
 	}
 }
