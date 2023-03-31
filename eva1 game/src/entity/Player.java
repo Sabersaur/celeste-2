@@ -17,7 +17,8 @@ public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler KeyH;
 	boolean debugging = true;
-	
+	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
+		
 	public final float screenX;
 	public final float screenY;
 	
@@ -91,9 +92,14 @@ public class Player extends Entity{
 			if (velocityY >= 0) { //velY is positive
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
-				line1P1[0] = (int) playerX + gp.tileSize/2;
-				line1P1[1] = (int) playerY - gp.tileSize/2;
 
+				line1P1[0] = (int) playerX + gp.tileSize/2;
+		    	line1P1[1] = (int) playerY - gp.tileSize/2;
+
+				if (debugging) {
+					g2.drawLine((int) line1P1[0],(int) line1P1[1],(int) (line1P1[0] + velocityX),(int) (line1P1[1] - velocityY));
+				}
+				
 				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy >= 0; ix++) {
 
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
@@ -101,10 +107,8 @@ public class Player extends Entity{
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-
 						
-
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, !velXplus);
 						if (col[0] != 0 && col[1] != 0) { // Collision point found
 							playerX = col[0] - (gp.tileSize)/2 -1; // Don't go through wall
 							velocityX = 0; // Be stopped by wall
@@ -114,12 +118,12 @@ public class Player extends Entity{
 						line2P1[1] = (iy+1)*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, !velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize)/2 +1; //+1 for IDK it worked when walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
-						}	
+						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
 						ix = countx-1;
@@ -133,32 +137,42 @@ public class Player extends Entity{
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
+				line1P1[0] = (int) playerX + gp.tileSize/2;
+				line1P1[1] = (int) playerY + gp.tileSize/2;
+
+				if (debugging) {
+					g2.drawLine((int) line1P1[0],(int) line1P1[1],(int) (line1P1[0] + velocityX),(int) (line1P1[1] - velocityY));
+				}
+
 				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy <= gp.maxWorldRow-1; ix++) {
 					
-					line1P1[0] = (int) playerX + gp.tileSize/2;
-					line1P1[1] = (int) playerY + gp.tileSize/2;
 
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						
+						int[] helpme = new int[2];
+						helpme[0] = line1P1[0] +0;
+						helpme[1] = line1P1[1] -1;
+						col = colisionAid(helpme, line2P1, line2P2, g2, !velXplus);
 						if (col[0] != 0 && col[1] != 0) {
-							playerX = col[0] - (gp.tileSize)/2 -1;
-							velocityX = 0;
+							playerX = col[0] - (gp.tileSize)/2 -1; //Consider it a good luck charm
+							velocityX = 0; // I'm trying my hardest with these funny comments
 							line1P1[0] = (int) col[0];
 						}
 						line2P1[0] = ix*gp.tileSize;
-						line2P1[1] =  iy*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+
+						col = colisionAid(line1P1, line2P1, line2P2, g2, !velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize)/2 -1; //-1 for smoother walking
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
-						}	
+						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
 						ix = countx-1;
@@ -169,22 +183,27 @@ public class Player extends Entity{
 					}
 				}
 			}
+			velXplus = true;
 		} else { //velX is negative
 			if (velocityY >= 0) { //velY is positive
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
+				line1P1[0] = (int) playerX - gp.tileSize/2;
+				line1P1[1] = (int) playerY - gp.tileSize/2;
+
+				if (debugging) {
+					g2.drawLine((int) line1P1[0],(int) line1P1[1],(int) (line1P1[0] + velocityX),(int) (line1P1[1] - velocityY));
+				}
+
 				for (int ix = countx +1, iy = county; ix >= 0 && iy >= 0; ix--) {
-					
-					line1P1[0] = (int) playerX - gp.tileSize/2;
-					line1P1[1] = (int) playerY - gp.tileSize/2;
 
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
 						line2P1[0] = (ix+1)*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
@@ -194,7 +213,7 @@ public class Player extends Entity{
 						line2P1[1] = (iy+1)*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] + (gp.tileSize)/2 +1;
 							velocityY = 0;
@@ -213,17 +232,21 @@ public class Player extends Entity{
 				countx = (int) playerX / gp.tileSize;
 				county = ((int) playerY / gp.tileSize);
 
+				line1P1[0] = (int) playerX - gp.tileSize/2;
+				line1P1[1] = (int) playerY + gp.tileSize/2;
+
+				if (debugging) {
+					g2.drawLine((int) line1P1[0],(int) line1P1[1],(int) (line1P1[0] + velocityX),(int) (line1P1[1] - velocityY));
+				}
+
 				for (int ix = countx +1, iy = county; ix >= 0 && iy <= gp.maxWorldRow-1; ix--) {
-					
-					line1P1[0] = (int) playerX - gp.tileSize/2;
-					line1P1[1] = (int) playerY + gp.tileSize/2;
 
 					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
 						line2P1[0] = (ix+1)*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerX = col[0] + (gp.tileSize)/2;
 							velocityX = 0;
@@ -233,7 +256,7 @@ public class Player extends Entity{
 						line2P1[1] =  iy*gp.tileSize;
 						line2P2[0] = line2P1[0] + gp.tileSize;
 						line2P2[1] = line2P1[1];
-						col = colisionAid(line1P1, line2P1, line2P2, g2);
+						col = colisionAid(line1P1, line2P1, line2P2, g2, velXplus);
 						if (col[0] != 0 && col[1] != 0) {
 							playerY = col[1] - (gp.tileSize)/2 -1; //Smoother walking, again
 							velocityY = 0;
@@ -250,13 +273,15 @@ public class Player extends Entity{
 				}
 
 			}
+			velXplus = false;
 		}
 		playerY -= velocityY;
 		playerX += velocityX;
 	}
-	public float[] colisionAid(int[] line1P1, float[] line2P1, float[] line2P2, Graphics2D g2) {
+	public float[] colisionAid(int[] line1P1, float[] line2P1, float[] line2P2, Graphics2D g2, boolean inblock) {
 		float[] result = new float[2];
 		float[] line1P2 = new float[2];
+
 
 		line1P2[0] = line1P1[0] + velocityX;
 		line1P2[1] = line1P1[1] - velocityY;
@@ -280,12 +305,41 @@ public class Player extends Entity{
 		  result[0] = line1P1[0] + (t * s1_x);
 		  result[1] = line1P1[1] + (t * s1_y);
 		}
+
+		if (inblock) { //I don't know WHY this breaks collision, but it does, so uhhhhh.... +1!
+			line1P2[1] = line1P1[1];
+
+			if (velXplus) {
+				line1P2[0] = line1P1[0] + gp.tileSize;
+			} else {
+				line1P2[0] = line1P1[0] - gp.tileSize;
+			}
+	
+			if (debugging) {
+				g2.drawLine((int) line2P1[0], (int) line2P1[1], (int) line2P2[0], (int) line2P2[1]);
+			}
+		   
+			s1_x = line1P2[0] - line1P1[0]; 
+			s1_y = line1P2[1] - line1P1[1];
+		  
+			s2_x = line2P2[0] - line2P1[0]; 
+			s2_y = line2P2[1] - line2P1[1]; 
+	
+	
+		  
+			s = (-s1_y * (line1P1[0] - line2P1[0]) + s1_x * (line1P1[1] - line2P1[1])) / (-s2_x * s1_y + s1_x * s2_y);
+			t = ( s2_x * (line1P1[1] - line2P1[1]) - s2_y * (line1P1[0] - line2P1[0])) / (-s2_x * s1_y + s1_x * s2_y);
 	  
+			if (s >= 0 && s <= 1 && t >= 0 && t <= 1) { // Collision detected
+			  result[0] = line1P1[0] + (t * s1_x);
+			  result[1] = line1P1[1] + (t * s1_y);
+			}
+		}
 		return result;
 	  }
 	
 	public void update() {
-		velocityX = (float) (velocityX*0.9); //Friction, bc SOMEONE didn't add colision yet
+		velocityX = (float) (velocityX*0.9); //Friction, for testing of code
 		velocityY = (float) (velocityY*0.9);
 		velocityY -= gravity;
 		
@@ -439,10 +493,9 @@ public class Player extends Entity{
 		g2.setColor(Color.white);
 		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
 
-		collide(g2);
-		
 		g2.setColor(Color.red);
 		g2.setStroke(new BasicStroke(3));
+		collide(g2);
 		g2.drawLine((int) playerX,(int) playerY,(int) (playerX + velocityX),(int) (playerY - velocityY));
 	}
 }
