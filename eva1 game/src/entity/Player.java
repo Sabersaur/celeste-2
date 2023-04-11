@@ -16,7 +16,7 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
-	boolean debugging = true;
+	boolean debugging = false;
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
 		
@@ -496,13 +496,17 @@ public class Player extends Entity{
 		}
 		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
 		// alternative white block as player
-		g2.setColor(Color.white);
-		g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+		if (debugging) {
+			g2.setColor(Color.white);
+			g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
+			g2.setColor(Color.red);
+			g2.setStroke(new BasicStroke(3));
+			collide(g2);
+			g2.drawLine((int) playerX, (int) playerY, (int) (playerX + velocityX), (int) (playerY - velocityY));
+		} else {
+			collide(g2);
+		}
 
-		g2.setColor(Color.red);
-		g2.setStroke(new BasicStroke(3));
-		collide(g2);
-		g2.drawLine((int) playerX, (int) playerY, (int) (playerX + velocityX), (int) (playerY - velocityY));
 		if (grounded > 0) {
 			grounded--;
 		}
