@@ -16,9 +16,10 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
-	boolean debugging = false;
+	boolean debugging = true;
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
+	int dash = 0;
 		
 	public final float screenX;
 	public final float screenY;
@@ -43,11 +44,12 @@ public class Player extends Entity{
 		velocityY = 0;
 		gravity = 1;
 		direction = "down";
+		grounded = 0;
+		dash = 0;
 	}
 	public void getPlayerImage() {
 		
 		try {
-			//video #3 (11:24) or pixelart.com scale 30x30 510 print scale
 			up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 			up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png/"));
 			up3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_3.png/"));
@@ -155,8 +157,8 @@ public class Player extends Entity{
 						line2P2[0] = line2P1[0];
 						line2P2[1] = line2P1[1] + gp.tileSize;
 						
-						int[] helpme = new int[2];
-						helpme[0] = line1P1[0] +0;
+						int[] helpme = new int[2]; //This wasn't supposed to work.
+						helpme[0] = line1P1[0] +0; //Since it does though, I'm not changing it
 						helpme[1] = line1P1[1] -1;
 						col = colisionAid(helpme, line2P1, line2P2, g2, !velXplus);
 						if (col[0] != 0 && col[1] != 0) {
@@ -175,6 +177,7 @@ public class Player extends Entity{
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 							grounded = 6;
+							dash = 1;
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -265,6 +268,7 @@ public class Player extends Entity{
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 							grounded = 6;
+							dash = 1;
 						}	
 					}
 					if (ix <= 0 || ix <= countx-5) {
@@ -311,7 +315,7 @@ public class Player extends Entity{
 		}
 
 		if (inblock) { //I don't know WHY this breaks collision, but it does, so uhhhhh.... +1!
-			line1P2[1] = line1P1[1];
+			line1P2[1] = line1P1[1]; // I never fixed this issue. Somehow, it's gone though. Hurray?
 
 			if (velXplus) {
 				line1P2[0] = line1P1[0] + gp.tileSize;
@@ -343,8 +347,11 @@ public class Player extends Entity{
 	  }
 	
 	public void update() {
-		velocityX = (float) (velocityX*0.9); //Friction, for testing of code
-		velocityY = (float) (velocityY*0.9);
+		if (grounded > 0) {
+			velocityX = (float) (velocityX*0.8); //Friction, while on ground
+		}
+		
+		//velocityY = (float) (velocityY*0.9);
 		velocityY -= gravity;
 		
 		
@@ -371,26 +378,29 @@ public class Player extends Entity{
 			}
 			if (KeyH.rightPressed) {
 				direction = "right";
-				velocityX++;
+				velocityX = velocityX;
 			}
 			if (KeyH.xKey) {
-				if (direction == "right") {
-					velocityX = velocityX + 25;
+				if (dash > 0) {
+					if (direction == "right") {
+						velocityX = velocityX + 15;
+					}
+					if (direction == "left") {
+						velocityX = velocityX - 15;
+					}
+					if (direction == "up") {
+						velocityY = velocityY + 15;
+					}
+					if (direction == "down") {
+						velocityY = velocityY - 15;
+					}
+					KeyH.xKey = false;
+					dash--;
 				}
-				if (direction == "left") {
-					velocityX = velocityX - 25;
-				}
-				if (direction == "up") {
-					velocityY = velocityY + 25;
-				}
-				if (direction == "down") {
-					velocityY = velocityY - 25;
-				}
-				KeyH.xKey = false;
 			}
 			if (KeyH.spacePressed) {
 				if (grounded > 0) {
-					velocityY =+ 30;
+					velocityY =+ 12;
 					KeyH.spacePressed = false;
 					grounded = 0;
 				}
@@ -495,9 +505,13 @@ public class Player extends Entity{
 			break;
 		}
 		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
-		// alternative white block as player
-		if (debugging) {
-			g2.setColor(Color.white);
+
+		if (debugging) {// alternative white block as player
+			if (dash == 0) {
+				g2.setColor(Color.blue);
+			} else {
+				g2.setColor(Color.white);
+			}
 			g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
 			g2.setColor(Color.red);
 			g2.setStroke(new BasicStroke(3));
