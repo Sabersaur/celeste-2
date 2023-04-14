@@ -16,15 +16,15 @@ public class TileManager {
 	public Tile[] tile;
 	public int mapTileNum[][];
 	
-<<<<<<< HEAD
-	int level = 0;
-	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt"};  
 
-=======
+	//int level = 0;
+	//String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt"};  
+
+
 	public int level = 0;
 	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-1.txt", "/res/maps/1-1.txt"};  
 	
->>>>>>> b14be0be549c76eab8e30b86e421c5a09cca5b60
+
 	public TileManager(GamePanel gp) {
 		
 		this.gp = gp;

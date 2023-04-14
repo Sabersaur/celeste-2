@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable{
 		g2.setColor(Color.black);
 		g.fillRect (60, 57, 100, 30);
 		g2.setColor(Color.white);
-		g2.drawString(String.valueOf((System.nanoTime()-Timer)/1000000000),75,75);
+		g2.drawString(String.valueOf((System.nanoTime()-Timer)/1000000),75,75);
 	
 	
 		g2.dispose();
