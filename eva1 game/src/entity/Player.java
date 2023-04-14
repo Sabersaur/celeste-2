@@ -106,7 +106,7 @@ public class Player extends Entity{
 				
 				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy >= 0; ix++) {
 
-					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
+					if (gp.tileM.mapTileNum[ix][iy] >= 1 && gp.tileM.mapTileNum[ix][iy] <= 3) { //Search for hitboxes
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
@@ -128,6 +128,42 @@ public class Player extends Entity{
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 
+						}
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 4) { //Search for ouchies
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 5) { //Search for screen transition
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -152,7 +188,7 @@ public class Player extends Entity{
 				for (int ix = countx, iy = county; ix <= gp.maxWorldCol-1 && iy <= gp.maxWorldRow-1; ix++) {
 					
 
-					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
+					if (gp.tileM.mapTileNum[ix][iy] >= 1 && gp.tileM.mapTileNum[ix][iy] <= 3) { //Search for hitboxes
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
@@ -181,6 +217,42 @@ public class Player extends Entity{
 							dash = 1;
 						}
 					}
+					if (gp.tileM.mapTileNum[ix][iy] == 4) { //Search for ouchies
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 5) { //Search for screen transition
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
+					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
 						ix = countx-1;
 						iy++;
@@ -205,7 +277,7 @@ public class Player extends Entity{
 
 				for (int ix = countx +1, iy = county; ix >= 0 && iy >= 0; ix--) {
 
-					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
+					if (gp.tileM.mapTileNum[ix][iy] >= 1 && gp.tileM.mapTileNum[ix][iy] <= 3) { //Search for hitboxes
 						line2P1[0] = (ix+1)*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
@@ -226,6 +298,42 @@ public class Player extends Entity{
 							velocityY = 0;
 							line1P1[1] = (int) col[1];
 						}	
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 4) { //Search for ouchies
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 5) { //Search for screen transition
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
 					}
 					if (ix <= 0 || ix <= countx-5) {
 						ix = countx +1; //look, it just works, okay?
@@ -248,7 +356,7 @@ public class Player extends Entity{
 
 				for (int ix = countx +1, iy = county; ix >= 0 && iy <= gp.maxWorldRow-1; ix--) {
 
-					if (gp.tileM.mapTileNum[ix][iy] >= 1) { //Search for hitboxes
+					if (gp.tileM.mapTileNum[ix][iy] >= 1 && gp.tileM.mapTileNum[ix][iy] <= 3) { //Search for hitboxes
 						line2P1[0] = (ix+1)*gp.tileSize;
 						line2P1[1] = iy*gp.tileSize;
 						line2P2[0] = line2P1[0];
@@ -271,6 +379,42 @@ public class Player extends Entity{
 							grounded = 6;
 							dash = 1;
 						}	
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 4) { //Search for ouchies
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							setDefaultValues();
+						}
+					}
+					if (gp.tileM.mapTileNum[ix][iy] == 5) { //Search for screen transition
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = iy*gp.tileSize;
+						line2P2[0] = line2P1[0];
+						line2P2[1] = line2P1[1] + gp.tileSize;
+
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
+						line2P1[0] = ix*gp.tileSize;
+						line2P1[1] = (iy+1)*gp.tileSize;
+						line2P2[0] = line2P1[0] + gp.tileSize;
+						line2P2[1] = line2P1[1];
+						if (colBin(line1P1, line2P1, line2P2, g2)) {
+							gp.tileM.level++;
+							gp.tileM.loadMap();
+						}
 					}
 					if (ix <= 0 || ix <= countx-5) {
 						ix = countx+1;
@@ -345,6 +489,30 @@ public class Player extends Entity{
 			}
 		}
 		return result;
+	  }
+	  public boolean colBin(int[] line1P1, float[] line2P1, float[] line2P2, Graphics2D g2) {
+		float[] line1P2 = new float[2];
+
+		line1P2[0] = line1P1[0] + velocityX;
+		line1P2[1] = line1P1[1] - velocityY;
+
+		if (debugging) {
+			g2.drawLine((int) line2P1[0], (int) line2P1[1], (int) line2P2[0], (int) line2P2[1]);
+		}
+	   
+		float s1_x = line1P2[0] - line1P1[0]; 
+		float s1_y = line1P2[1] - line1P1[1];
+	  
+		float s2_x = line2P2[0] - line2P1[0]; 
+		float s2_y = line2P2[1] - line2P1[1]; 
+	  
+		float s = (-s1_y * (line1P1[0] - line2P1[0]) + s1_x * (line1P1[1] - line2P1[1])) / (-s2_x * s1_y + s1_x * s2_y);
+		float t = ( s2_x * (line1P1[1] - line2P1[1]) - s2_y * (line1P1[0] - line2P1[0])) / (-s2_x * s1_y + s1_x * s2_y);
+	  
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1) { // Collision detected
+		  return true;
+		}
+		return false;
 	  }
 	
 	public void update() {

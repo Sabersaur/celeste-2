@@ -16,9 +16,15 @@ public class TileManager {
 	public Tile[] tile;
 	public int mapTileNum[][];
 	
+<<<<<<< HEAD
 	int level = 0;
 	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt"};  
 
+=======
+	public int level = 0;
+	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-1.txt", "/res/maps/1-1.txt"};  
+	
+>>>>>>> b14be0be549c76eab8e30b86e421c5a09cca5b60
 	public TileManager(GamePanel gp) {
 		
 		this.gp = gp;
@@ -38,7 +44,6 @@ public class TileManager {
 			
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grey.png"));
-			tile[1].collision = true;
 
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/water_boat_1.png"));
@@ -92,7 +97,7 @@ public class TileManager {
 					mapTileNum[col][row] = num;
 					col++;
 				}
-				if(col == gp.maxWorldCol) {
+				if (col == gp.maxWorldCol) {
 					col = 0;
 					row++;
 				}
