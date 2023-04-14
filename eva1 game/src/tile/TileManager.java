@@ -16,7 +16,7 @@ public class TileManager {
 	public Tile[] tile;
 	public int mapTileNum[][];
 	
-	int level = 0;
+	public int level = 0;
 	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-1.txt", "/res/maps/1-1.txt"};  
 	
 	public TileManager(GamePanel gp) {
@@ -38,7 +38,6 @@ public class TileManager {
 			
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grey.png"));
-			tile[1].collision = true;
 
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/water_boat_1.png"));
@@ -93,7 +92,7 @@ public class TileManager {
 					mapTileNum[col][row] = num;
 					col++;
 				}
-				if(col == gp.maxWorldCol) {
+				if (col == gp.maxWorldCol) {
 					col = 0;
 					row++;
 				}
