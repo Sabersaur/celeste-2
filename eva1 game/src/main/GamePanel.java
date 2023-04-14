@@ -29,7 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread; 
 	public Player player = new Player(this,KeyH);
 	
-	
+	long Timer = System.nanoTime();
+
 	public GamePanel () {
 		
 		this.setPreferredSize(new Dimension((int) screenWidth,(int) screenHeight));
@@ -91,8 +92,14 @@ public class GamePanel extends JPanel implements Runnable{
 		tileM.draw(g2);
 		
 		player.draw(g2);
-		
+		g2.setColor(Color.black);
+		g.fillRect (60, 57, 100, 30);
+		g2.setColor(Color.white);
+		g2.drawString(String.valueOf((System.nanoTime()-Timer)/1000000000),75,75);
+	
+	
 		g2.dispose();
+		
 	}
 }
 

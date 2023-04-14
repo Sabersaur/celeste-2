@@ -17,8 +17,8 @@ public class TileManager {
 	public int mapTileNum[][];
 	
 	int level = 0;
-	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-1.txt", "/res/maps/1-1.txt"};  
-	
+	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt"};  
+
 	public TileManager(GamePanel gp) {
 		
 		this.gp = gp;
@@ -72,9 +72,8 @@ public class TileManager {
 	public void loadMap() {
 		
 		try {
-			
+	
 			InputStream is = getClass().getResourceAsStream(maps[level]);
-			
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			
 			int col = 0;
