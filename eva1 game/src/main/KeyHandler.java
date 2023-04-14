@@ -29,7 +29,7 @@ public class KeyHandler implements KeyListener{
 		if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
 			rightPressed = true;
 		}
-		if (code == KeyEvent.VK_X) {
+		if (code == KeyEvent.VK_L) {
 			if (xKeyBad) {
 				xKey = false;
 			} else {
@@ -59,7 +59,7 @@ public class KeyHandler implements KeyListener{
 		if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
 			rightPressed = false;
 		}
-		if (code == KeyEvent.VK_X) {
+		if (code == KeyEvent.VK_L) {
 			xKeyBad = false;
 		}
 

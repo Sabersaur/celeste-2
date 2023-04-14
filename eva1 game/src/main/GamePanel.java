@@ -1,7 +1,7 @@
 package main;
 
 import java.awt.Color;
-//import java.awt.BasicStroke; // For debugging
+//import java.awt.BasicStroke; // For debugging... or, it was. Somehow, it is no longer needed. I dare not remove it though
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
