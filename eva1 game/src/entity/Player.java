@@ -20,6 +20,7 @@ public class Player extends Entity{
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
 	int dash = 0;
+	int directioncount = 0;
 		
 	public final float screenX;
 	public final float screenY;
@@ -351,7 +352,8 @@ public class Player extends Entity{
 			velocityX = (float) (velocityX*0.8); //Friction, while on ground
 		}
 		
-		//velocityY = (float) (velocityY*0.9);
+		velocityX = (float) (velocityX*0.95);
+		velocityY = (float) (velocityY*0.95);
 		velocityY -= gravity;
 		
 		
@@ -366,45 +368,68 @@ public class Player extends Entity{
 			
 			if(KeyH.upPressed) {
 				direction = "up";
+				directioncount++;
 			}
 			 
 			if(KeyH.downPressed) {
 				direction = "down";
 				velocityY--;
+				directioncount++;
 			}
 			if(KeyH.leftPressed) {
 				direction = "left";
 				velocityX--;
+				directioncount++;
 			}
 			if (KeyH.rightPressed) {
 				direction = "right";
-				velocityX = velocityX;
+				velocityX++;
+				directioncount++;
 			}
 			if (KeyH.xKey) {
 				if (dash > 0) {
-					if (direction == "right") {
-						velocityX = velocityX + 15;
+					if (directioncount > 1) { //Dashes should have equal strength, no matter the direction
+						if (KeyH.rightPressed) {
+							velocityX = velocityX + 20*0.707f; //sin(45) = 0.707
+						}
+						if (KeyH.leftPressed) {
+							velocityX = velocityX - 20*0.707f;
+						}
+						if (KeyH.upPressed) {
+							velocityY = velocityY + 30*0.707f;
+						}
+						if (KeyH.downPressed) {
+							velocityY = velocityY - 30*0.707f;
+						}
+						KeyH.xKey = false;
+						dash--;
+					} else {
+						if (KeyH.rightPressed) {
+							velocityX = velocityX + 15;
+						}
+						if (KeyH.leftPressed) {
+							velocityX = velocityX - 15;
+						} // The difference in horizontal and vertical momentum comes from the practical feel in-game
+						if (KeyH.upPressed) { // Vertical movement is heavily limited by gravity, whereas
+							velocityY = velocityY + 30; // Horizontal movement is basically free
+						}
+						if (KeyH.downPressed) {
+							velocityY = velocityY - 30;
+						}
+						KeyH.xKey = false;
+						dash--;
 					}
-					if (direction == "left") {
-						velocityX = velocityX - 15;
-					}
-					if (direction == "up") {
-						velocityY = velocityY + 15;
-					}
-					if (direction == "down") {
-						velocityY = velocityY - 15;
-					}
-					KeyH.xKey = false;
-					dash--;
+					
 				}
 			}
 			if (KeyH.spacePressed) {
 				if (grounded > 0) {
-					velocityY =+ 12;
+					velocityY =+ 15;
 					KeyH.spacePressed = false;
 					grounded = 0;
 				}
 			}
+			directioncount = 0;
 			//Player sprite changer 
 			spriteCounter++;
 			if(spriteCounter > 4) { // (12 = speed of change relative to FPS)
