@@ -55,7 +55,8 @@ public class GamePanel extends JPanel implements Runnable{
 	så når Thread'en starter kalder den Run metoden. */
 	public void run() {
 		
-		double drawInterval = 1000000000/FPS; //0.01666 sec = 60 times på et sek
+		double drawInterval = 1000000000/FPS; //0.01666 sec = 60 times på et sek 
+		//double bruges istedet for float til store nummre //1000000000 nanosek/60 = 0,016666 sek hvilket betder at den opdatere scærmen 60 gange i sekundet.
 		double nextDrawTime = System.nanoTime() + drawInterval; 
 		
  		//while Loop repeater det inde i loopet mens og så længde gameThread kører
@@ -66,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
 			repaint(); //repaint er måden man kalder paintcomponet metoden i java
 			
 			try {
-				double remainingTime = nextDrawTime - System.nanoTime();
+				double remainingTime = nextDrawTime - System.nanoTime(); //substrahere currentime - nextdraw
 				remainingTime = remainingTime/1000000;
 				
 				if(remainingTime < 0) {
