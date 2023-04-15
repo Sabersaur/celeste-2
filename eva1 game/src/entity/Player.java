@@ -16,7 +16,7 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
-	boolean debugging = true;
+	boolean debugging = false; // blev brugt da vi lavede colissions. Gjorde egentlig bare karakteren til en firkant med størrelse = tilesize.
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
 	int dash = 0;
@@ -51,15 +51,18 @@ public class Player extends Entity{
 	public void getPlayerImage() {
 		
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png/"));
-			up3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_3.png/"));
-			up4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_4.png/"));
 
-			down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			down3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
-			down4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			//vi ændrede i spillets grundstruktur, så spilleren kun går til højre / venstre, og derfor ikke behøver op/ned sprites.
+
+			//up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			//up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png/"));
+			//up3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_3.png/"));
+			//up4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_4.png/"));
+
+			//down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			//down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			//down3 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
+			//down4 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png/"));
 
 			left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_1.png/"));
 			left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_Left_2.png/"));
@@ -638,7 +641,7 @@ public class Player extends Entity{
 		switch(direction) {
 		case "up":
 			if (spriteNum >= 1) {
-				image = right1;
+				image = right1; //ser mærkeligt ud, men vi har beholdt orienteringerne fra vores oprindelige system, men visuelt er der nu kun behov for højre/venstre.
 			}/* else if (spriteNum == 2) {
 				image = up2;
 			} else if (spriteNum == 3) {
@@ -649,7 +652,7 @@ public class Player extends Entity{
 			break;
 		case "down":
 			if (spriteNum >= 1) {
-			    image = right1;
+			    image = right1; // samme sker her
 			}/* else if (spriteNum == 2) {
 				image = down2;
 			} else if (spriteNum == 3) {
@@ -697,14 +700,14 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
+		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.6), (int) (gp.tileSize*1.6), null);
 
 		if (debugging) {// alternative white block as player
 			if (dash == 0) {
 				g2.setColor(Color.blue);
 			} else {
 				g2.setColor(Color.white);
-			}
+				}
 			g2.fillRect((int) playerX - gp.tileSize/2,(int) playerY - gp.tileSize/2, gp.tileSize, gp.tileSize);
 			g2.setColor(Color.red);
 			g2.setStroke(new BasicStroke(3));

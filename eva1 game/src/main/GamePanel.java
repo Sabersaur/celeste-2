@@ -107,10 +107,10 @@ public class GamePanel extends JPanel implements Runnable{
 		g2.setColor(Color.black); //sætter 2D farven sort
 		g.fillRect (60, 57, 100, 30); //rectangle med given størrelse
 		g2.setColor(Color.white); //sætter rect til hvid
-		g2.drawString(String.valueOf((System.nanoTime()-Timer)/1000000000),75,75);
+		g2.drawString(String.valueOf((System.nanoTime()-Timer)/1000000000),75,75); //selve timeren
 	
 	
-		g2.dispose();//uptimizeastion
+		g2.dispose();//optimisering
 		
 	}
 }
