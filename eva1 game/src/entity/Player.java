@@ -16,7 +16,7 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
-	boolean debugging = true;
+	boolean debugging = false; // blev brugt da vi lavede colissions. Gjorde egentlig bare karakteren til en firkant med størrelse = tilesize.
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
 	int dash = 0;
@@ -700,7 +700,7 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.2), (int) (gp.tileSize*1.2), null);
+		g2.drawImage(image, (int) playerX - gp.tileSize*2/3, (int) playerY - gp.tileSize*3/4, (int) (gp.tileSize*1.6), (int) (gp.tileSize*1.6), null);
 
 		if (debugging) {// alternative white block as player
 			if (dash == 0) {
