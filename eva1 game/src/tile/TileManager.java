@@ -17,7 +17,7 @@ public class TileManager {
 	public int mapTileNum[][];
 	
 	public int level = 0;
-	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt"};  
+	String maps[]= {"/res/maps/1-1.txt", "/res/maps/1-2.txt", "/res/maps/1-3.txt", "/res/maps/1-4.txt", "/res/maps/1-5.txt"};  
 	
 	public TileManager(GamePanel gp) {
 		
@@ -34,7 +34,7 @@ public class TileManager {
 		try {
 			
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/baggrund.png"));
 			
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grey.png"));
@@ -52,7 +52,7 @@ public class TileManager {
 			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/point.png"));
 			
 			tile[6] = new Tile();
-			tile[6].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass_water_corner_left.png"));
+			tile[6].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/stillads.png"));
 			
 			tile[7] = new Tile();
 			tile[7].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass_flower_sprite.png"));
