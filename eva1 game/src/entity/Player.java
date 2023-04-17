@@ -159,6 +159,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -167,6 +168,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -246,6 +248,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -254,6 +257,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 					}
 					if (ix >= gp.maxWorldCol-1 || ix >= countx+5) {
@@ -328,6 +332,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -336,6 +341,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 					}
 					if (ix <= 0 || ix <= countx-5) {
@@ -409,6 +415,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 						line2P1[0] = ix*gp.tileSize;
 						line2P1[1] = (iy+1)*gp.tileSize;
@@ -417,6 +424,7 @@ public class Player extends Entity{
 						if (colBin(line1P1, line2P1, line2P2, g2)) {
 							gp.tileM.level++;
 							gp.tileM.loadMap();
+							setDefaultValues();
 						}
 					}
 					if (ix <= 0 || ix <= countx-5) {
