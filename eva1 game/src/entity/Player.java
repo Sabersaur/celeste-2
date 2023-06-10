@@ -16,7 +16,7 @@ public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler KeyH;
-	boolean debugging = false; // blev brugt da vi lavede colissions. Gjorde egentlig bare karakteren til en firkant med størrelse = tilesize.
+	boolean debugging = true; // blev brugt da vi lavede colissions. Gjorde egentlig bare karakteren til en firkant med størrelse = tilesize.
 	boolean velXplus = true; //I'm sorry, but I need this variable, no matter how stupid it sounds
 	int grounded = 0;
 	int dash = 0;
